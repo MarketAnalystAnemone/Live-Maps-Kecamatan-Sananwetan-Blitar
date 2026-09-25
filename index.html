@@ -20,11 +20,183 @@
             padding: 0;
             margin: 0;
         }
+			               .legend-panel {
+            position: absolute;
+            top: 12px;
+            right: 10px;
+            z-index: 1000;
+            width: 260px;
+            max-width: calc(100vw - 20px);
+            box-sizing: border-box;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .legend-panel h3 {
+            margin: 0 0 4px 0;
+            font-size: 15px;
+            font-weight: 700;
+            color: #222;
+        }
+        .legend-logo {
+            display: block;
+            max-width: 150px;
+            height: auto;
+            margin: 0 auto 10px auto;
+        }
+        .legend-panel .legend-caption {
+            margin-bottom: 4px;
+            font-size:11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #8a8a8a;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+            user-select: none;
+        }
+        .legend-item input[type="checkbox"] {
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            accent-color: #2e7d32;
+            cursor: pointer;
+        }
+        .legend-swatch {
+            display: inline-block;
+            flex-shrink: 0;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+        }
+        .legend-swatch.line {
+            width: 16px;
+            height: 4px;
+            border-radius: 1px;
+        }
+        .legend-divider {
+            margin: 10px 0;
+            border-top: 1px solid #e2e2e2;
+        }
+        .legend-population {
+            font-size: 14px;
+            font-weight: 700;
+            color: #222;
+        }
+        .legend-paragraph {
+            width: 100%;
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: justify;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            box-sizing: border-box;
+            color: #222;
+        }
+        .info-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .info-toggle-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #222;
+            white-space: nowrap;
+        }
+        .info-arrow {
+            flex-shrink: 0;
+            transition: transform 0.25s ease;
+            font-size: 10px;
+            color: #8a8a8a;
+        }
+        .info-toggle.open .info-arrow {
+            transform: rotate(180deg);
+        }
+        .info-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+        }
+        .info-content.open {
+            opacity: 1;
+            margin-top: 10px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            padding-right: 4px;
+        }
+        .info-content.open::-webkit-scrollbar {
+            width: 6px;
+        }
+        .info-content.open::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 3px;
+        }
         </style>
         <title></title>
     </head>
     <body>
         <div id="map">
+        </div>
+		               <div class="legend-panel" id="legendPanel">
+            <img class="legend-logo" src="images/Logo Kop Surat.png">
+            <h3>kecamatan Sananwetan</h3>
+            <div class="legend-divider"></div>
+            <label class="legend-item">
+                <input type="checkbox" id="chk_tk" checked>
+                <span class="legend-swatch" style="background: rgba(219,30,42,1.0);"></span> Persebaran TK
+            </label>
+            <label class="legend-item">
+                <input type="checkbox" id="chk_sd" checked>
+                <span class="legend-swatch" style="background: rgba(72,123,182,1.0);"></span> Persebaran SD
+            </label>
+            <label class="legend-item">
+                <input type="checkbox" id="chk_batas" checked>
+                <span class="legend-swatch line" style="background: rgba(255,218,0,1.0);"></span>
+                Batas Kecamatan
+            </label>
+            <label class="legend-item">
+                <input type="checkbox" id="chk_traffic" checked> Google Traffic
+            </label>
+            <label class="legend-item">
+                <input type="checkbox" id="chk_hybrid" checked> Google Hybrid
+            </label>
+            <div class="legend-divider"></div>
+            <div class="info-toggle" id="infoToggle">
+                <span class="info-toggle-label">Informasi Detail Wilayah</span>
+                <span class="info-arrow">&#9660;</span>
+            </div>
+            <div class="info-content" id="infoContent">
+                <div class="legend-caption">JUMLAH ANAK USIA 4-9 TAHUN</div>
+                <div class="legend-population"> 4.102 Jiwa </div>
+                <div class="legend-divider"></div>
+                <div class="legend-caption">JUMLAH SEKOLAH</div>
+                <div class="legend-population">TK:25 SD:22</div>
+                <div class="legend-divider"></div>
+                <div class="legend-caption">MARKET SHARE</div>
+                <div class="legend-caption">20% x (50% x Anak 4-9 Tahun)</div>
+                <div class="legend-population"> 410 Siswa</div>
+                <div class="legend-divider"></div>
+                <div class="legend-caption">TRAFFIC MAKER WILAYAH</div>
+                <div class="legend-paragraph">Pusat pelayanan pendidikan dan komersial pelayanan jasa. Dalam RTRW masuk kedalam kawasan zona pemukiman sedang hingga tinggi. Memiliki pola pemukiman penduduk yang terstruktur dalam bentuk kompleks perumahan klaster menengah hingga atas serta jaringan sekolah formal yang sangat kuat dengan TK dan SD Negeri Favorit dan Swasta terpadu.</div>
+                <div class="legend-divider"></div>
+                <div class="legend-caption">AREA STRATEGIS</div>
+                <div class="legend-paragraph">Koridor segitiga Jl Ahmad Yani - Jl Kalimantan - Jl Imam Bonjol, dan Koridor Jl Bali</div>
+            </div>
         </div>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
@@ -343,23 +515,57 @@
         });
         bounds_group.addLayer(layer_PersebaranTK_4);
         map.addLayer(layer_PersebaranTK_4);
-        var overlaysTree = [
-            {label: '<img src="legend/PersebaranTK_4.png" /> Persebaran TK', layer: layer_PersebaranTK_4},
-            {label: '<img src="legend/PersebaranSD_3.png" /> Persebaran SD', layer: layer_PersebaranSD_3},
-            {label: '<img src="legend/BatasKecamatan_2.png" /> Batas Kecamatan', layer: layer_BatasKecamatan_2},
-            {label: "Google Traffic", layer: layer_GoogleTraffic_1},
-            {label: "Google Hybrid", layer: layer_GoogleHybrid_0},]
-        var lay = L.control.layers.tree(null, overlaysTree,{
-            //namedToggle: true,
-            //selectorBack: false,
-            //closedSymbol: '&#8862; &#x1f5c0;',
-            //openedSymbol: '&#8863; &#x1f5c1;',
-            //collapseAll: 'Collapse all',
-            //expandAll: 'Expand all',
-            collapsed: true,
-        });
-        lay.addTo(map);
+		        function toggleLayer(checkboxId, layer) {
+            document.getElementById(checkboxId).addEventListener('change', function (e) {
+                if (e.target.checked) {
+                    map.addLayer(layer);
+                } else {
+                    map.removeLayer(layer);
+                }
+            });
+        }
+        toggleLayer('chk_tk', layer_PersebaranTK_4);
+        toggleLayer('chk_sd', layer_PersebaranSD_3);
+        toggleLayer('chk_batas', layer_BatasKecamatan_2);
+        toggleLayer('chk_traffic', layer_GoogleTraffic_1);
+        toggleLayer('chk_hybrid', layer_GoogleHybrid_0);
         setBounds();
+                var infoToggle = document.getElementById('infoToggle');
+        var infoContent = document.getElementById('infoContent');
+        var legendPanel = document.getElementById('legendPanel');
+        function sizeInfoContent() {
+            if (!infoContent.classList.contains('open')) return;
+            var rect = infoContent.getBoundingClientRect();
+            var breathingRoom = 30;
+            var ceiling = window.innerHeight - breathingRoom;
+            var attribution = document.querySelector('.leaflet-control-attribution');
+            if (attribution) {
+                var attrTop = attribution.getBoundingClientRect().top;
+                var safeAboveAttribution = attrTop - 30;
+                if (safeAboveAttribution < ceiling) ceiling = safeAboveAttribution;
+            }
+            var available = ceiling - rect.top;
+            if (available < 100) available = 100;
+            infoContent.style.maxHeight = available + 'px';
+        }
+        infoToggle.addEventListener('click', function () {
+            var willOpen = !infoContent.classList.contains('open');
+            infoToggle.classList.toggle('open');
+            infoContent.classList.toggle('open');
+            if (willOpen) {
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(sizeInfoContent);
+                });
+            } else {
+                infoContent.style.maxHeight = '';
+            }
+        });
+        window.addEventListener('resize', sizeInfoContent);
+        window.addEventListener('orientationchange', function () {
+            setTimeout(sizeInfoContent, 250);
+        });
+        L.DomEvent.disableScrollPropagation(legendPanel);
+        L.DomEvent.disableClickPropagation(legendPanel);
         </script>        
     </body>
 </html>
